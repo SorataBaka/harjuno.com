@@ -1,118 +1,247 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import Image from "next/image";
+import { NextSeo } from "next-seo";
+import ProjectTemplate from "@/components/showcase";
+import { useRef } from "react";
+import { BsGithub, BsInstagram, BsLinkedin } from "react-icons/bs";
+import { FiMail } from "react-icons/fi";
+import { useRouter } from "next/router";
+import { IoLogoJavascript } from "react-icons/io";
+import {
+	SiTypescript,
+	SiNextdotjs,
+	SiMongodb,
+	SiRedis,
+	SiRailway,
+	SiVercel,
+	SiExpress,
+} from "react-icons/si";
+import { TbBrandVscode } from "react-icons/tb";
+import { AiFillGithub } from "react-icons/ai";
+import {
+	FaNodeJs,
+	FaDocker,
+	FaGitAlt,
+	FaUbuntu,
+	FaReact,
+	FaDigitalOcean,
+} from "react-icons/fa";
 
 export default function Home() {
-  return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+	const nextpageref = useRef<null | HTMLDivElement>(null);
+	const contactref = useRef<null | HTMLDivElement>(null);
+	const router = useRouter();
+	const icons = [
+		SiTypescript,
+		SiNextdotjs,
+		SiMongodb,
+		SiRedis,
+		SiRailway,
+		SiVercel,
+		SiExpress,
+		TbBrandVscode,
+		AiFillGithub,
+		IoLogoJavascript,
+		FaNodeJs,
+		FaDocker,
+		FaGitAlt,
+		FaUbuntu,
+		FaReact,
+		FaDigitalOcean,
+	];
+	return (
+		<>
+			<NextSeo title="Homepage" />
+			<main className="flex flex-col min-w-full">
+				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10">
+					<Image
+						alt="Profile Picture"
+						src={"/profile-picture.JPG"}
+						width={250}
+						height={250}
+						className="rounded-full mx-auto shadow-[0px_0px_900px_30px_rgba(255,255,255,0.3)]"
+					/>
+					<h1 className="font-mono text-white text-center text-3xl mt-5 font-bold">
+						Christian Harjuno
+					</h1>
+					<p className="font-mono text-white text-center mt-5 text-xl">
+						Student & Web Developer
+					</p>
+					<button
+						className="text-white mt-10 w-1/2 border mx-auto rounded-2xl p-4 font-mono"
+						onClick={() => {
+							nextpageref.current?.scrollIntoView({
+								behavior: "smooth",
+								block: "start",
+								inline: "start",
+							});
+						}}
+					>
+						Read More
+					</button>
+				</section>
+				<section
+					className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white"
+					ref={nextpageref}
+				>
+					<h2 className="font-mono text-3xl text-center font-bold">
+						Who am i?
+					</h2>
+					<p className="font-mono text-xl text-center mt-5 ">
+						Amateur Web Developer attending Kushiro Kosen as a <br /> Japanese
+						Government scholarship student. <br /> <br />
+						Currently active developing frontend and backend applications using
+						NodeJS. <br /> <br />I love to automate small insignificant tasks to
+						make things more streamline and efficient. <br /> <br />
+						Always actively learning new things and experimenting to expand my
+						knowledge in programming.
+					</p>
+				</section>
+				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white">
+					<h2 className="font-mono text-3xl text-center mb-5 font-bold">
+						Tools
+					</h2>
+					<div className="grid grid-cols-2">
+						{icons.map((Icon, index) => {
+							return (
+								<Icon
+									size={100}
+									key={index}
+									className="mx-auto my-5 shadow-[0px_0px_1000px_10px_rgba(255,255,255,0.2)] bg-transparent"
+								/>
+							);
+						})}
+					</div>
+				</section>
+				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white">
+					<h2 className="font-mono text-3xl text-center mb-5 font-bold">
+						Projects
+					</h2>
+					<div className="flex flex-col w-full space-y-5">
+						<ProjectTemplate
+							description="Indonesia Covid-19 statistics GraphQL Endpoint"
+							projectName="CovidGraphQL"
+							url="https://github.com/SorataBaka/CovidGraphQL"
+							icon="github"
+						/>
+						<ProjectTemplate
+							description="Server management tool for Sashimi Discord Server"
+							projectName="Akame-bot"
+							url="https://github.com/SorataBaka/Akame-V2"
+							icon="github"
+						/>
+						<ProjectTemplate
+							description="Google Calendar Import tool for Bina Nusantara University schedule"
+							projectName="Binus-Calendar-Manager"
+							url="https://github.com/SorataBaka/Binus-Calendar-Manager"
+							icon="github"
+						/>
+						<ProjectTemplate
+							description="Pomodoro Timer with customizable time rules"
+							projectName="better-pomodoro"
+							url="https://github.com/SorataBaka/better-pomodoro"
+							icon="github"
+						/>
+						<ProjectTemplate
+							description="Anonymous Confession page for JASSO Language School"
+							projectName="JASSOFess"
+							url="https://github.com/SorataBaka/JASSOFessFE"
+							icon="github"
+						/>
+						<ProjectTemplate
+							description="AI Powered medical insurance compatibility finder"
+							projectName="Insurancelia"
+							url="https://devpost.com/software/insurancelia"
+							icon="others"
+						/>
+						<ProjectTemplate
+							description="Co-founder of Indonesia based software house"
+							projectName="Nusantara Wing Labs"
+							url="nwl.works"
+							icon="others"
+						/>
+					</div>
+				</section>
+				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white">
+					<h2 className="font-mono text-3xl text-center mb-5 font-bold">
+						Socials
+					</h2>
+					<div className="grid grid-cols-2">
+						<BsGithub
+							size={70}
+							className="mx-auto my-10 hover:cursor-pointer shadow-[0px_0px_100px_10px_rgba(255,255,255,0.3)]"
+							onClick={() => {
+								router.push("https://github.com/SorataBaka");
+							}}
+						/>
+						<BsInstagram
+							size={70}
+							className="mx-auto my-10 hover:cursor-pointer shadow-[0px_0px_100px_10px_rgba(255,255,255,0.3)]"
+							onClick={() => {
+								router.push("https://www.instagram.com/tian.harjuno/");
+							}}
+						/>
+						<BsLinkedin
+							size={70}
+							className="mx-auto my-10 hover:cursor-pointer shadow-[0px_0px_100px_10px_rgba(255,255,255,0.3)]"
+							onClick={() => {
+								router.push("https://www.linkedin.com/in/christian-harjuno/");
+							}}
+						/>
+						<FiMail
+							size={70}
+							className="mx-auto my-10 hover:cursor-pointer shadow-[0px_0px_100px_10px_rgba(255,255,255,0.3)]"
+							onClick={() => {
+								contactref.current?.scrollIntoView({
+									behavior: "smooth",
+									block: "start",
+									inline: "start",
+								});
+							}}
+						/>
+					</div>
+				</section>
+				<section
+					className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white"
+					ref={contactref}
+				>
+					<h2 className="font-mono text-3xl text-center mb-5 font-bold">
+						Contact Me
+					</h2>
+					<form
+						action="mailto:mail@tianharjuno.com"
+						className="space-y-3 shadow-[0px_0px_100px_1px_rgba(255,255,255,0.1)]"
+						method="get"
+						encType="text/plain"
+					>
+						<input
+							type="email"
+							placeholder="Email"
+							className="w-full bg-transparent text-white p-2 border rounded-lg"
+						/>
+						<input
+							type="text"
+							placeholder="Name"
+							className="w-full bg-transparent text-white p-2 border rounded-lg"
+						/>
+						<input
+							type="text"
+							placeholder="Subject"
+							className="w-full bg-transparent text-white p-2 border rounded-lg"
+						/>
+						<textarea
+							placeholder="Message"
+							cols={30}
+							rows={10}
+							className="w-full bg-transparent text-white p-2 border rounded-lg"
+						/>
+						<input
+							type="submit"
+							className="text-white mt-10 w-full border mx-auto rounded-xl p-3 m-auto font-mono"
+							value={"Send"}
+						/>
+					</form>
+				</section>
+			</main>
+		</>
+	);
 }
