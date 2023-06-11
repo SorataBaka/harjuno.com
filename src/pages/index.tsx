@@ -119,10 +119,10 @@ export default function Home() {
 						height={250}
 						className="rounded-full mx-auto shadow-[0px_0px_900px_30px_rgba(255,255,255,0.3)]"
 					/>
-					<h1 className="font-mono text-white text-center text-3xl mt-5 font-bold">
+					<h1 className="font-mono text-white text-center text-3xl mt-5 font-bold lg:text-5xl">
 						Christian Harjuno
 					</h1>
-					<p className="font-mono text-white text-center mt-5 text-xl">
+					<p className="font-mono text-white text-center mt-5 text-xl lg:text-3xl">
 						Student & Web Developer
 					</p>
 					<button
@@ -142,10 +142,10 @@ export default function Home() {
 					className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white"
 					ref={nextpageref}
 				>
-					<h2 className="font-mono text-3xl text-center font-bold">
+					<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
 						Who am i?
 					</h2>
-					<p className="font-mono text-xl text-center mt-5 ">
+					<p className="font-mono text-xl text-center mt-5 lg:text-3xl">
 						Amateur Web Developer attending Kushiro Kosen as a <br /> Japanese
 						Government scholarship student. <br /> <br />
 						Currently active developing frontend and backend applications using
@@ -156,10 +156,10 @@ export default function Home() {
 					</p>
 				</section>
 				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white">
-					<h2 className="font-mono text-3xl text-center mb-5 font-bold">
+					<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
 						Tools
 					</h2>
-					<div className="grid grid-cols-2">
+					<div className="grid grid-cols-2 lg:grid-cols-8">
 						{icons.map((Icon, index) => {
 							return (
 								<Icon
@@ -172,10 +172,10 @@ export default function Home() {
 					</div>
 				</section>
 				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white">
-					<h2 className="font-mono text-3xl text-center mb-5 font-bold">
+					<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
 						Projects
 					</h2>
-					<div className="flex flex-col w-full space-y-5">
+					<div className="flex flex-col w-full space-y-5 lg:grid lg:grid-cols-3 lg:space-y-0 lg:gap-10">
 						{projects.map((project, index) => {
 							return (
 								<ProjectTemplate
@@ -190,10 +190,10 @@ export default function Home() {
 					</div>
 				</section>
 				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white">
-					<h2 className="font-mono text-3xl text-center mb-5 font-bold">
+					<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
 						Socials
 					</h2>
-					<div className="grid grid-cols-2">
+					<div className="grid grid-cols-2 lg:grid-cols-4">
 						{socials.map((Social, index) => {
 							return (
 								<Social.Logo
@@ -223,12 +223,12 @@ export default function Home() {
 					className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white"
 					ref={contactref}
 				>
-					<h2 className="font-mono text-3xl text-center mb-5 font-bold">
+					<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
 						Contact Me
 					</h2>
 					<form
 						action="mailto:mail@tianharjuno.com"
-						className="space-y-3 shadow-[0px_0px_100px_1px_rgba(255,255,255,0.1)]"
+						className="space-y-3 shadow-[0px_0px_100px_1px_rgba(255,255,255,0.1)] md:w-1/2 md:mx-auto"
 						method="get"
 						encType="text/plain"
 					>

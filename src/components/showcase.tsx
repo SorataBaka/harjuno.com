@@ -17,7 +17,7 @@ const ProjectTemplate: FC<TemplateParameters> = ({
 	const router = useRouter();
 	return (
 		<div
-			className="bg-white/30 rounded-3xl w-full min-h-[150px] py-3 px-5 flex flex-row align-middle justify-between hover:cursor-pointer space-x-3 pointer-events-auto shadow-[0px_0px_100px_10px_rgba(255,255,255,0.2)]"
+			className="bg-white/30 rounded-3xl w-full min-h-[100px] py-3 px-5 flex flex-row align-middle justify-between hover:cursor-pointer space-x-3 pointer-events-auto shadow-[0px_0px_100px_10px_rgba(255,255,255,0.2)] lg:min-h-[200px]"
 			onClick={() => {
 				router.push(url);
 			}}
