@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { NextSeo } from "next-seo";
-import ProjectTemplate from "@/components/showcase";
+import ProjectTemplate, { TemplateParameters } from "@/components/showcase";
 import { useRef } from "react";
 import { BsGithub, BsInstagram, BsLinkedin } from "react-icons/bs";
 import { FiMail } from "react-icons/fi";
@@ -47,6 +47,65 @@ export default function Home() {
 		FaUbuntu,
 		FaReact,
 		FaDigitalOcean,
+	];
+	const socials = [
+		{
+			Logo: BsGithub,
+			link: "https://www.github.com/SorataBaka",
+		},
+		{
+			Logo: BsInstagram,
+			link: "https://www.instagram.com/tian.harjuno/",
+		},
+		{
+			Logo: BsLinkedin,
+			link: "https://www.linkedin.com/in/christian-harjuno",
+		},
+	];
+	const projects: TemplateParameters[] = [
+		{
+			description: "Indonesia Covid-19 statistics GraphQL Endpoint",
+			projectName: "CovidGraphQL",
+			url: "https://github.com/SorataBaka/CovidGraphQL",
+			icon: "github",
+		},
+		{
+			description: "Server management tool for Sashimi Discord Server",
+			projectName: "Akame-bot",
+			url: "https://github.com/SorataBaka/Akame-V2",
+			icon: "github",
+		},
+		{
+			description:
+				"Google Calendar Import tool for Bina Nusantara University schedule",
+			projectName: "Binus-Calendar-Manager",
+			url: "https://github.com/SorataBaka/Binus-Calendar-Manager",
+			icon: "github",
+		},
+		{
+			description: "Pomodoro Timer with customizable time rules",
+			projectName: "better-pomodoro",
+			url: "https://github.com/SorataBaka/better-pomodoro",
+			icon: "github",
+		},
+		{
+			description: "Anonymous Confession page for JASSO Language School",
+			projectName: "JASSOFess",
+			url: "https://github.com/SorataBaka/JASSOFessFE",
+			icon: "github",
+		},
+		{
+			description: "AI Powered medical insurance compatibility finder",
+			projectName: "Insurancelia",
+			url: "https://devpost.com/software/insurancelia",
+			icon: "others",
+		},
+		{
+			description: "Co-founder of Indonesia based software house",
+			projectName: "Nusantara Wing Labs",
+			url: "https://nwl.works/en",
+			icon: "others",
+		},
 	];
 	return (
 		<>
@@ -117,48 +176,17 @@ export default function Home() {
 						Projects
 					</h2>
 					<div className="flex flex-col w-full space-y-5">
-						<ProjectTemplate
-							description="Indonesia Covid-19 statistics GraphQL Endpoint"
-							projectName="CovidGraphQL"
-							url="https://github.com/SorataBaka/CovidGraphQL"
-							icon="github"
-						/>
-						<ProjectTemplate
-							description="Server management tool for Sashimi Discord Server"
-							projectName="Akame-bot"
-							url="https://github.com/SorataBaka/Akame-V2"
-							icon="github"
-						/>
-						<ProjectTemplate
-							description="Google Calendar Import tool for Bina Nusantara University schedule"
-							projectName="Binus-Calendar-Manager"
-							url="https://github.com/SorataBaka/Binus-Calendar-Manager"
-							icon="github"
-						/>
-						<ProjectTemplate
-							description="Pomodoro Timer with customizable time rules"
-							projectName="better-pomodoro"
-							url="https://github.com/SorataBaka/better-pomodoro"
-							icon="github"
-						/>
-						<ProjectTemplate
-							description="Anonymous Confession page for JASSO Language School"
-							projectName="JASSOFess"
-							url="https://github.com/SorataBaka/JASSOFessFE"
-							icon="github"
-						/>
-						<ProjectTemplate
-							description="AI Powered medical insurance compatibility finder"
-							projectName="Insurancelia"
-							url="https://devpost.com/software/insurancelia"
-							icon="others"
-						/>
-						<ProjectTemplate
-							description="Co-founder of Indonesia based software house"
-							projectName="Nusantara Wing Labs"
-							url="nwl.works"
-							icon="others"
-						/>
+						{projects.map((project, index) => {
+							return (
+								<ProjectTemplate
+									description={project.description}
+									icon={project.icon}
+									projectName={project.projectName}
+									url={project.url}
+									key={index}
+								/>
+							);
+						})}
 					</div>
 				</section>
 				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white">
@@ -166,27 +194,18 @@ export default function Home() {
 						Socials
 					</h2>
 					<div className="grid grid-cols-2">
-						<BsGithub
-							size={70}
-							className="mx-auto my-10 hover:cursor-pointer shadow-[0px_0px_100px_10px_rgba(255,255,255,0.3)]"
-							onClick={() => {
-								router.push("https://github.com/SorataBaka");
-							}}
-						/>
-						<BsInstagram
-							size={70}
-							className="mx-auto my-10 hover:cursor-pointer shadow-[0px_0px_100px_10px_rgba(255,255,255,0.3)]"
-							onClick={() => {
-								router.push("https://www.instagram.com/tian.harjuno/");
-							}}
-						/>
-						<BsLinkedin
-							size={70}
-							className="mx-auto my-10 hover:cursor-pointer shadow-[0px_0px_100px_10px_rgba(255,255,255,0.3)]"
-							onClick={() => {
-								router.push("https://www.linkedin.com/in/christian-harjuno/");
-							}}
-						/>
+						{socials.map((Social, index) => {
+							return (
+								<Social.Logo
+									size={70}
+									key={index}
+									className="mx-auto my-10 hover:cursor-pointer shadow-[0px_0px_100px_10px_rgba(255,255,255,0.3)]"
+									onClick={() => {
+										router.push(Social.link);
+									}}
+								/>
+							);
+						})}
 						<FiMail
 							size={70}
 							className="mx-auto my-10 hover:cursor-pointer shadow-[0px_0px_100px_10px_rgba(255,255,255,0.3)]"

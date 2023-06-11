@@ -22,7 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
 					cardType: "summary",
 				}}
 			/>
-			<Component {...pageProps} />;
+			<Component {...pageProps} />
 		</>
 	);
 }

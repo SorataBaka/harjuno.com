@@ -2,13 +2,13 @@ import { FC } from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { LuStretchHorizontal } from "react-icons/lu";
 import { useRouter } from "next/router";
-interface Parameters {
+export interface TemplateParameters {
 	projectName: string;
 	description: string;
 	url: string;
 	icon: "github" | "others";
 }
-const ProjectTemplate: FC<Parameters> = ({
+const ProjectTemplate: FC<TemplateParameters> = ({
 	projectName,
 	description,
 	url,
