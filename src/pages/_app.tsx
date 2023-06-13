@@ -1,7 +1,8 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { DefaultSeo } from "next-seo";
-export default function App({ Component, pageProps }: AppProps) {
+import { appWithTranslation } from "next-i18next";
+const App = ({ Component, pageProps }: AppProps) => {
 	return (
 		<>
 			<DefaultSeo
@@ -27,4 +28,5 @@ export default function App({ Component, pageProps }: AppProps) {
 			<Component {...pageProps} />
 		</>
 	);
-}
+};
+export default appWithTranslation(App);

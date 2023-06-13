@@ -5,6 +5,8 @@ import { useRef } from "react";
 import { BsGithub, BsInstagram, BsLinkedin } from "react-icons/bs";
 import { FiMail } from "react-icons/fi";
 import { useRouter } from "next/router";
+import translation from "@/helper/i18n";
+import { useTranslation } from "next-i18next";
 import { IoLogoJavascript } from "react-icons/io";
 import {
 	SiTypescript,
@@ -27,6 +29,7 @@ import {
 } from "react-icons/fa";
 
 export default function Home() {
+	const { t } = useTranslation(["index"]);
 	const nextpageref = useRef<null | HTMLDivElement>(null);
 	const contactref = useRef<null | HTMLDivElement>(null);
 	const router = useRouter();
@@ -120,10 +123,10 @@ export default function Home() {
 						className="rounded-full mx-auto shadow-[0px_0px_900px_30px_rgba(255,255,255,0.3)]"
 					/>
 					<h1 className="font-mono text-white text-center text-3xl mt-5 font-bold lg:text-5xl">
-						Christian Harjuno
+						{t("name.h1")}
 					</h1>
 					<p className="font-mono text-white text-center mt-5 text-xl lg:text-3xl">
-						Student & Web Developer
+						{t("shortdesc.p")}
 					</p>
 					<button
 						className="text-white mt-10 w-1/2 border mx-auto rounded-2xl p-4 font-mono"
@@ -135,7 +138,7 @@ export default function Home() {
 							});
 						}}
 					>
-						Read More
+						{t("readmore.button")}
 					</button>
 				</section>
 				<section
@@ -143,21 +146,15 @@ export default function Home() {
 					ref={nextpageref}
 				>
 					<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
-						Who am i?
+						{t("whoami.h2")}
 					</h2>
 					<p className="font-mono text-xl text-center mt-5 lg:text-3xl">
-						Amateur Web Developer attending Kushiro Kosen as a <br /> Japanese
-						Government scholarship student. <br /> <br />
-						Currently active developing frontend and backend applications using
-						NodeJS. <br /> <br />I love to automate small insignificant tasks to
-						make things more streamline and efficient. <br /> <br />
-						Always actively learning new things and experimenting to expand my
-						knowledge in programming.
+						{t("whoami.p")}
 					</p>
 				</section>
 				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white">
 					<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
-						Tools
+						{t("tools.h2")}
 					</h2>
 					<div className="grid grid-cols-2 lg:grid-cols-8">
 						{icons.map((Icon, index) => {
@@ -173,7 +170,7 @@ export default function Home() {
 				</section>
 				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white">
 					<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
-						Projects
+						{t("projects.h2")}
 					</h2>
 					<div className="flex flex-col w-full space-y-5 lg:grid lg:grid-cols-3 lg:space-y-0 lg:gap-10">
 						{projects.map((project, index) => {
@@ -191,7 +188,7 @@ export default function Home() {
 				</section>
 				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white">
 					<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
-						Socials
+						{t("socials.h2")}
 					</h2>
 					<div className="grid grid-cols-2 lg:grid-cols-4">
 						{socials.map((Social, index) => {
@@ -224,7 +221,7 @@ export default function Home() {
 					ref={contactref}
 				>
 					<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
-						Contact Me
+						{t("contactme.h2")}
 					</h2>
 					<form
 						action="mailto:mail@tianharjuno.com"
@@ -234,21 +231,21 @@ export default function Home() {
 					>
 						<input
 							type="email"
-							placeholder="Email"
+							placeholder={t("contactme.email") as string}
 							className="w-full bg-transparent text-white p-2 border rounded-lg"
 						/>
 						<input
 							type="text"
-							placeholder="Name"
+							placeholder={t("contactme.name") as string}
 							className="w-full bg-transparent text-white p-2 border rounded-lg"
 						/>
 						<input
 							type="text"
-							placeholder="Subject"
+							placeholder={t("contactme.subject") as string}
 							className="w-full bg-transparent text-white p-2 border rounded-lg"
 						/>
 						<textarea
-							placeholder="Message"
+							placeholder={t("contactme.message") as string}
 							cols={30}
 							rows={10}
 							className="w-full bg-transparent text-white p-2 border rounded-lg"
@@ -256,11 +253,18 @@ export default function Home() {
 						<input
 							type="submit"
 							className="text-white mt-10 w-full border mx-auto rounded-xl p-3 m-auto font-mono"
-							value={"Send"}
+							value={t("contactme.submit") as string}
 						/>
 					</form>
 				</section>
 			</main>
 		</>
 	);
+}
+export async function getStaticProps({ locale }: { locale: string }) {
+	return {
+		props: {
+			...(await translation(locale, ["index"])),
+		},
+	};
 }
