@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { NextSeo } from "next-seo";
 import ProjectTemplate, { TemplateParameters } from "@/components/showcase";
-import { useRef, FC } from "react";
+import { useRef, FC, useState, useEffect } from "react";
 import { BsGithub, BsInstagram, BsLinkedin } from "react-icons/bs";
 import { FiMail } from "react-icons/fi";
 import { useRouter } from "next/router";
 import translation from "@/helper/i18n";
 import { useTranslation } from "next-i18next";
+import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { IoLogoJavascript } from "react-icons/io";
 import {
 	SiTypescript,
@@ -27,13 +28,23 @@ import {
 	FaReact,
 	FaDigitalOcean,
 } from "react-icons/fa";
+
 interface Props {
 	locale: string;
 }
 const Home: FC<Props> = ({ locale }) => {
 	const { t } = useTranslation(["index"]);
+	const topsectionref = useRef<null | HTMLDivElement>(null);
 	const nextpageref = useRef<null | HTMLDivElement>(null);
 	const contactref = useRef<null | HTMLDivElement>(null);
+	const [isIntersecting, setIsIntersecting] = useState(true);
+	useEffect(() => {
+		const observer = new IntersectionObserver(([entry]) => {
+			setIsIntersecting(entry.isIntersecting);
+		});
+		observer.observe(topsectionref.current as HTMLDivElement);
+		return () => observer.disconnect();
+	}, []);
 	const router = useRouter();
 	const icons = [
 		SiTypescript,
@@ -116,35 +127,52 @@ const Home: FC<Props> = ({ locale }) => {
 		<>
 			<NextSeo title="Homepage" />
 			<main className="flex flex-col min-w-full">
-				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10">
-					<select
-						name="Language"
-						id="lang"
-						className="w-min h-20 rounded-full align-middle bg-transparent text-white font-mono self-start text-2xl border-none outline-none fixed right-5 top-5"
-						value={locale.toLowerCase()}
-						onChange={(e) => {
-							router.replace("/", {}, { locale: e.target.value });
+				{!isIntersecting && (
+					<BsFillArrowUpCircleFill
+						size={45}
+						className="fixed bg-slate-400 bg-opacity-40 shadow-[0px_0px_100px_10px_rgba(0,0,0,1)] rounded-full bottom-5 right-5 border-white border hover:cursor-pointer "
+						onClick={(e) => {
+							e.preventDefault();
+							topsectionref.current?.scrollIntoView({
+								behavior: "smooth",
+								block: "start",
+								inline: "start",
+							});
 						}}
+					/>
+				)}
+				<select
+					name="Language"
+					id="lang"
+					className="w-min h-10 rounded-full align-middle bg-transparent text-white font-mono self-start text-2xl border-none outline-none fixed right-5 top-5"
+					value={locale.toLowerCase()}
+					onChange={(e) => {
+						router.replace("/", {}, { locale: e.target.value });
+					}}
+				>
+					<option
+						className="bg-black font-mono border-none outline-none"
+						value="en"
 					>
-						<option
-							className="bg-black font-mono border-none outline-none"
-							value="en"
-						>
-							EN
-						</option>
-						<option
-							value="id"
-							className="bg-black font-mono border-none outline-none"
-						>
-							ID
-						</option>
-						<option
-							value="jp"
-							className="bg-black font-mono border-none outline-none"
-						>
-							JP
-						</option>
-					</select>
+						EN
+					</option>
+					<option
+						value="id"
+						className="bg-black font-mono border-none outline-none"
+					>
+						ID
+					</option>
+					<option
+						value="jp"
+						className="bg-black font-mono border-none outline-none"
+					>
+						JP
+					</option>
+				</select>
+				<section
+					className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10"
+					ref={topsectionref}
+				>
 					<Image
 						alt="Profile Picture"
 						priority={true}
@@ -161,7 +189,8 @@ const Home: FC<Props> = ({ locale }) => {
 					</p>
 					<button
 						className="text-white mt-10 w-1/2 border mx-auto rounded-2xl p-4 font-mono"
-						onClick={() => {
+						onClick={(e) => {
+							e.preventDefault();
 							nextpageref.current?.scrollIntoView({
 								behavior: "smooth",
 								block: "start",
@@ -237,7 +266,8 @@ const Home: FC<Props> = ({ locale }) => {
 						<FiMail
 							size={70}
 							className="mx-auto my-10 hover:cursor-pointer shadow-[0px_0px_100px_10px_rgba(255,255,255,0.3)]"
-							onClick={() => {
+							onClick={(e) => {
+								e.preventDefault();
 								contactref.current?.scrollIntoView({
 									behavior: "smooth",
 									block: "start",
