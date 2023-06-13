@@ -117,6 +117,7 @@ export default function Home() {
 				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10">
 					<Image
 						alt="Profile Picture"
+						priority={true}
 						src={"/profile-picture.JPG"}
 						width={250}
 						height={250}
