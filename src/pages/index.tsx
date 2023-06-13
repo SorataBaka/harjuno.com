@@ -141,34 +141,36 @@ const Home: FC<Props> = ({ locale }) => {
 						}}
 					/>
 				)}
-				<select
-					name="Language"
-					id="lang"
-					className="w-min h-10 rounded-full align-middle bg-transparent text-white font-mono self-start text-2xl border-none outline-none fixed right-5 top-5"
-					value={locale.toLowerCase()}
-					onChange={(e) => {
-						router.replace("/", {}, { locale: e.target.value });
-					}}
-				>
-					<option
-						className="bg-black font-mono border-none outline-none"
-						value="en"
+				{isIntersecting && (
+					<select
+						name="Language"
+						id="lang"
+						className="w-min h-10 rounded-full align-middle bg-transparent text-white font-mono self-start text-2xl border-none outline-none fixed right-5 top-5"
+						value={locale.toLowerCase()}
+						onChange={(e) => {
+							router.replace("/", {}, { locale: e.target.value });
+						}}
 					>
-						EN
-					</option>
-					<option
-						value="id"
-						className="bg-black font-mono border-none outline-none"
-					>
-						ID
-					</option>
-					<option
-						value="jp"
-						className="bg-black font-mono border-none outline-none"
-					>
-						JP
-					</option>
-				</select>
+						<option
+							className="bg-black font-mono border-none outline-none"
+							value="en"
+						>
+							EN
+						</option>
+						<option
+							value="id"
+							className="bg-black font-mono border-none outline-none"
+						>
+							ID
+						</option>
+						<option
+							value="jp"
+							className="bg-black font-mono border-none outline-none"
+						>
+							JP
+						</option>
+					</select>
+				)}
 				<section
 					className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10"
 					ref={topsectionref}
