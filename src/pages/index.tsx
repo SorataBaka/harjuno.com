@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { NextSeo } from "next-seo";
 import ProjectTemplate, { TemplateParameters } from "@/components/showcase";
-import { useRef } from "react";
+import { useRef, FC } from "react";
 import { BsGithub, BsInstagram, BsLinkedin } from "react-icons/bs";
 import { FiMail } from "react-icons/fi";
 import { useRouter } from "next/router";
@@ -27,8 +27,10 @@ import {
 	FaReact,
 	FaDigitalOcean,
 } from "react-icons/fa";
-
-export default function Home() {
+interface Props {
+	locale: string;
+}
+const Home: FC<Props> = ({ locale }) => {
 	const { t } = useTranslation(["index"]);
 	const nextpageref = useRef<null | HTMLDivElement>(null);
 	const contactref = useRef<null | HTMLDivElement>(null);
@@ -115,6 +117,34 @@ export default function Home() {
 			<NextSeo title="Homepage" />
 			<main className="flex flex-col min-w-full">
 				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10">
+					<select
+						name="Language"
+						id="lang"
+						className="w-min h-20 rounded-full align-middle bg-transparent text-white font-mono self-start text-2xl border-none outline-none fixed right-5 top-5"
+						value={locale.toLowerCase()}
+						onChange={(e) => {
+							router.replace("/", {}, { locale: e.target.value });
+						}}
+					>
+						<option
+							className="bg-black font-mono border-none outline-none"
+							value="en"
+						>
+							EN
+						</option>
+						<option
+							value="id"
+							className="bg-black font-mono border-none outline-none"
+						>
+							ID
+						</option>
+						<option
+							value="jp"
+							className="bg-black font-mono border-none outline-none"
+						>
+							JP
+						</option>
+					</select>
 					<Image
 						alt="Profile Picture"
 						priority={true}
@@ -261,11 +291,13 @@ export default function Home() {
 			</main>
 		</>
 	);
-}
+};
+export default Home;
 export async function getStaticProps({ locale }: { locale: string }) {
 	return {
 		props: {
 			...(await translation(locale, ["index"])),
+			locale,
 		},
 	};
 }
