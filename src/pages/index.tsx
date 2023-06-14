@@ -28,7 +28,6 @@ import {
 	FaReact,
 	FaDigitalOcean,
 } from "react-icons/fa";
-import profilePicture from "../../public/profile-picture.jpg";
 
 interface Props {
 	locale: string;
@@ -179,10 +178,11 @@ const Home: FC<Props> = ({ locale }) => {
 					<Image
 						alt="Profile Picture"
 						priority={true}
-						src={profilePicture}
+						src={"/profile-picture.jpg"}
 						width={250}
 						height={250}
 						placeholder="blur"
+						blurDataURL="/blue.jpg"
 						loading="eager"
 						quality={60}
 						className="rounded-full mx-auto shadow-[0px_0px_900px_30px_rgba(255,255,255,0.3)]"
