@@ -178,7 +178,7 @@ const Home: FC<Props> = ({ locale }) => {
 					<Image
 						alt="Profile Picture"
 						priority={true}
-						src={"/profile-picture.jpg"}
+						src={"/profile-picture.JPG"}
 						width={250}
 						height={250}
 						placeholder="blur"
