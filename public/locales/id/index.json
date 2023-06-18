@@ -12,5 +12,8 @@
 	"contactme.name": "Nama",
 	"contactme.subject": "Subjek",
 	"contactme.message": "Pesan",
-	"contactme.submit": "Kirim"
+	"contactme.submit": "Kirim",
+	"contactme.submitpending": "Mengirim...",
+	"contactme.sent": "Terkirim!",
+	"contactme.error": "Gagal Mengirim!"
 }
