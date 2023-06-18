@@ -394,7 +394,7 @@ const Home: FC<Props> = ({ locale }) => {
 						/>
 						{turnstileToken && (
 							<span
-								className="text-center text-slate-400 font-thin italic text-sm "
+								className="text-center text-slate-400 font-thin italic text-sm hover:cursor-pointer"
 								onClick={() => {
 									navigator.clipboard.writeText("mail@tianharjuno.com");
 									toast("Copied to Clipboard!");
