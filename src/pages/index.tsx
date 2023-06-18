@@ -380,7 +380,7 @@ const Home: FC<Props> = ({ locale }) => {
 						/>
 						<input
 							type="submit"
-							className="text-white mt-10 border mx-auto rounded-xl p-3 m-auto font-mono disabled:bg-slate-900 w-full lg:w-1/2 "
+							className="text-white mt-10 border mx-auto rounded-xl p-3 m-auto font-mono disabled:bg-slate-900 w-full lg:w-1/3 "
 							value={
 								t(
 									sendStatus === 1
@@ -392,6 +392,17 @@ const Home: FC<Props> = ({ locale }) => {
 							}
 							disabled={!turnstileToken}
 						/>
+						{turnstileToken && (
+							<span
+								className="text-center text-slate-400 font-thin italic text-sm "
+								onClick={() => {
+									navigator.clipboard.writeText("mail@tianharjuno.com");
+									toast("Copied to Clipboard!");
+								}}
+							>
+								Click here to copy Email Address
+							</span>
+						)}
 						<Turnstile
 							sitekey={SITEKEY}
 							theme="dark"
