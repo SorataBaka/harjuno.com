@@ -2,13 +2,24 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { DefaultSeo } from "next-seo";
 import { appWithTranslation } from "next-i18next";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const App = ({ Component, pageProps }: AppProps) => {
 	return (
 		<>
+			<ToastContainer
+				theme="dark"
+				position="top-right"
+				autoClose={3000}
+				limit={1}
+				pauseOnFocusLoss={false}
+				pauseOnHover={false}
+				closeOnClick={true}
+			/>
 			<DefaultSeo
 				titleTemplate="Christian Harjuno - %s"
 				defaultTitle="Christian Harjuno - Website"
-				description="Web Developer who is interested in automating things and simplifying process."
+				description="Students & Web Developer"
 				canonical="https://tianharjuno.com"
 				openGraph={{
 					siteName: "Christian Harjuno",

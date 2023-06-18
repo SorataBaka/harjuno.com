@@ -12,5 +12,8 @@
 	"contactme.name": "Name",
 	"contactme.subject": "Subject",
 	"contactme.message": "Message",
-	"contactme.submit": "Send"
+	"contactme.submit": "Send",
+	"contactme.submitpending": "Sending..",
+	"contactme.sent": "Sent!",
+	"contactme.error": "Error!"
 }

@@ -1,43 +1,53 @@
-import Image from "next/image";
-import { NextSeo } from "next-seo";
 import ProjectTemplate, { TemplateParameters } from "@/components/showcase";
-import { useRef, FC, useState, useEffect } from "react";
-import { BsGithub, BsInstagram, BsLinkedin } from "react-icons/bs";
-import { FiMail } from "react-icons/fi";
-import { useRouter } from "next/router";
 import translation from "@/helper/i18n";
 import { useTranslation } from "next-i18next";
-import { BsFillArrowUpCircleFill } from "react-icons/bs";
-import { IoLogoJavascript } from "react-icons/io";
-import {
-	SiTypescript,
-	SiNextdotjs,
-	SiMongodb,
-	SiRedis,
-	SiRailway,
-	SiVercel,
-	SiExpress,
-} from "react-icons/si";
-import { TbBrandVscode } from "react-icons/tb";
+import { NextSeo } from "next-seo";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { FC, useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 import { AiFillGithub } from "react-icons/ai";
+import Turnstile from "react-turnstile";
 import {
-	FaNodeJs,
+	BsFillArrowUpCircleFill,
+	BsGithub,
+	BsInstagram,
+	BsLinkedin,
+} from "react-icons/bs";
+import {
+	FaDigitalOcean,
 	FaDocker,
 	FaGitAlt,
-	FaUbuntu,
+	FaNodeJs,
 	FaReact,
-	FaDigitalOcean,
+	FaUbuntu,
 } from "react-icons/fa";
+import { FiMail } from "react-icons/fi";
+import { IoLogoJavascript } from "react-icons/io";
+import {
+	SiExpress,
+	SiMongodb,
+	SiNextdotjs,
+	SiRailway,
+	SiRedis,
+	SiTypescript,
+	SiVercel,
+} from "react-icons/si";
+import { TbBrandVscode } from "react-icons/tb";
+import Link from "next/link";
 
 interface Props {
 	locale: string;
 }
 const Home: FC<Props> = ({ locale }) => {
+	const SITEKEY = process.env.TURNSTILE_SITE_KEY as string;
 	const { t } = useTranslation(["index"]);
 	const topsectionref = useRef<null | HTMLDivElement>(null);
 	const nextpageref = useRef<null | HTMLDivElement>(null);
 	const contactref = useRef<null | HTMLDivElement>(null);
 	const [isIntersecting, setIsIntersecting] = useState(true);
+	const [turnstileToken, setTurnstileToken] = useState<boolean>(false);
+	const [sendStatus, setSendStatus] = useState<number>(1);
 	useEffect(() => {
 		const observer = new IntersectionObserver(([entry]) => {
 			setIsIntersecting(entry.isIntersecting);
@@ -123,6 +133,45 @@ const Home: FC<Props> = ({ locale }) => {
 			icon: "others",
 		},
 	];
+	const handlesend = async (e: any) => {
+		e.preventDefault();
+		const formdata = new FormData(e.target as HTMLFormElement);
+		const fetchpromise = new Promise((resolve, reject) => {
+			setSendStatus(2);
+			setTurnstileToken(false);
+			fetch("/api/contact", {
+				method: "POST",
+				body: JSON.stringify(Object.fromEntries(formdata.entries())),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			})
+				.then(async (data) => {
+					if (data.status !== 200) {
+						setSendStatus(1);
+						setTurnstileToken(true);
+						return reject(undefined);
+					}
+					const datajson = await data.json();
+					setTimeout(() => {
+						(e.target as HTMLFormElement).reset();
+						setSendStatus(1);
+						setTurnstileToken(true);
+						return resolve(datajson);
+					}, 2000);
+				})
+				.catch((e) => {
+					setSendStatus(1);
+					setTurnstileToken(true);
+					return reject(undefined);
+				});
+		});
+		await toast.promise(fetchpromise, {
+			success: t("contactme.sent") as string,
+			pending: t("contactme.submitpending") as string,
+			error: t("contactme.error") as string,
+		});
+	};
 	return (
 		<>
 			<NextSeo title="Homepage" />
@@ -228,7 +277,7 @@ const Home: FC<Props> = ({ locale }) => {
 								<Icon
 									size={100}
 									key={index}
-									className="mx-auto my-5 shadow-[0px_0px_1000px_10px_rgba(255,255,255,0.2)] bg-transparent"
+									className="mx-auto my-5 shadow-[0px_0px_1000px_10px_rgba(255,255,255,0.2)] bg-white/[.045] rounded-xl"
 								/>
 							);
 						})}
@@ -259,19 +308,17 @@ const Home: FC<Props> = ({ locale }) => {
 					<div className="grid grid-cols-2 lg:grid-cols-4">
 						{socials.map((Social, index) => {
 							return (
-								<Social.Logo
-									size={70}
-									key={index}
-									className="mx-auto my-10 hover:cursor-pointer shadow-[0px_0px_100px_10px_rgba(255,255,255,0.3)]"
-									onClick={() => {
-										router.push(Social.link);
-									}}
-								/>
+								<Link key={index} href={Social.link}>
+									<Social.Logo
+										size={70}
+										className="mx-auto my-10 hover:cursor-pointer shadow-[0px_0px_100px_10px_rgba(255,255,255,0.3)] rounded-3xl"
+									/>
+								</Link>
 							);
 						})}
 						<FiMail
 							size={70}
-							className="mx-auto my-10 hover:cursor-pointer shadow-[0px_0px_100px_10px_rgba(255,255,255,0.3)]"
+							className="mx-auto my-10 hover:cursor-pointer shadow-[0px_0px_100px_10px_rgba(255,255,255,0.3)] rounded-3xl"
 							onClick={(e) => {
 								e.preventDefault();
 								contactref.current?.scrollIntoView({
@@ -291,36 +338,71 @@ const Home: FC<Props> = ({ locale }) => {
 						{t("contactme.h2")}
 					</h2>
 					<form
-						action="mailto:mail@tianharjuno.com"
-						className="space-y-3 shadow-[0px_0px_100px_1px_rgba(255,255,255,0.1)] md:w-1/2 md:mx-auto"
-						method="get"
-						encType="text/plain"
+						className="space-y-3  md:w-1/2 md:mx-auto flex flex-col justify-center align-middle"
+						method="POST"
+						action="/api/contact"
+						onSubmit={handlesend}
 					>
 						<input
 							type="email"
 							placeholder={t("contactme.email") as string}
-							className="w-full bg-transparent text-white p-2 border rounded-lg"
+							className="w-full bg-transparent text-white p-2 border rounded-lg disabled:bg-slate-900 "
+							required
+							name="email"
 						/>
 						<input
 							type="text"
 							placeholder={t("contactme.name") as string}
-							className="w-full bg-transparent text-white p-2 border rounded-lg"
+							className="w-full bg-transparent text-white p-2 border rounded-lg disabled:bg-slate-900 "
+							required
+							name="name"
+							minLength={3}
+							maxLength={30}
 						/>
 						<input
 							type="text"
 							placeholder={t("contactme.subject") as string}
-							className="w-full bg-transparent text-white p-2 border rounded-lg"
+							className="w-full bg-transparent text-white p-2 border rounded-lg disabled:bg-slate-900 "
+							required
+							name="subject"
+							minLength={5}
+							maxLength={20}
 						/>
 						<textarea
 							placeholder={t("contactme.message") as string}
 							cols={30}
 							rows={10}
-							className="w-full bg-transparent text-white p-2 border rounded-lg"
+							className="w-full bg-transparent text-white p-2 border rounded-lg disabled:bg-slate-900 "
+							required
+							name="message"
+							minLength={10}
+							maxLength={400}
 						/>
 						<input
 							type="submit"
-							className="text-white mt-10 w-full border mx-auto rounded-xl p-3 m-auto font-mono"
-							value={t("contactme.submit") as string}
+							className="text-white mt-10 border mx-auto rounded-xl p-3 m-auto font-mono disabled:bg-slate-900 w-full lg:w-1/2 "
+							value={
+								t(
+									sendStatus === 1
+										? "contactme.submit"
+										: sendStatus === 2
+										? "contactme.submitpending"
+										: "contactme.sent"
+								) as string
+							}
+							disabled={!turnstileToken}
+						/>
+						<Turnstile
+							sitekey={SITEKEY}
+							theme="dark"
+							onVerify={(token: string) => {
+								setTurnstileToken(true);
+							}}
+							refreshExpired="auto"
+							responseField={true}
+							responseFieldName="token"
+							className="mx-auto mt-5 rounded-lg"
+							size="normal"
 						/>
 					</form>
 				</section>

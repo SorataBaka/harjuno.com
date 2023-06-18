@@ -4,9 +4,11 @@ const nextConfig = {
 	i18n,
 	reactStrictMode: true,
 	compress: true,
-	swcMinify: true,
 	poweredByHeader: false,
 	output: "standalone",
+	env: {
+		TURNSTILE_SITE_KEY: process.env.TURNSTILE_SITE_KEY,
+	},
 };
 
 module.exports = nextConfig;
