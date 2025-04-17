@@ -1,0 +1,48 @@
+{
+	"name": "harjuno.com",
+	"version": "0.1.0",
+	"private": true,
+	"author": {
+		"email": "harjuno.tian@gmail.com",
+		"name": "Christian Harjuno (SorataBaka)",
+		"url": "https://tianharjuno.com"
+	},
+	"description": "Repository for tianharjuno.com personal website",
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"postbuild": "next-sitemap"
+	},
+	"dependencies": {
+		"@emailjs/browser": "^3.11.0",
+		"@emailjs/nodejs": "^2.2.0",
+		"autoprefixer": "10.4.14",
+		"i18next": "^22.5.1",
+		"joi": "^17.9.2",
+		"next": "13.4.5",
+		"next-i18next": "^13.3.0",
+		"next-seo": "^6.0.0",
+		"postcss": "8.4.24",
+		"react": "18.2.0",
+		"react-dom": "18.2.0",
+		"react-i18next": "^12.3.1",
+		"react-icons": "^4.9.0",
+		"react-toastify": "^9.1.3",
+		"react-turnstile": "^1.1.0",
+		"tailwindcss": "3.3.2",
+		"typescript": "5.1.3"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^17.6.5",
+		"@commitlint/config-conventional": "^17.6.5",
+		"@types/node": "20.3.0",
+		"@types/react": "18.2.11",
+		"@types/react-dom": "18.2.4",
+		"eslint": "8.42.0",
+		"eslint-config-next": "13.4.5",
+		"husky": "^8.0.3",
+		"next-sitemap": "^4.1.3"
+	}
+}

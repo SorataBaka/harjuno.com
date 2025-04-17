@@ -1,0 +1,19 @@
+{
+	"name.h1": "Christian Harjuno",
+	"shortdesc.p": "Student & Web Developer",
+	"readmore.button": "Read More",
+	"whoami.h2": "Who am i?",
+	"whoami.p": "Amateur Web Developer attending Kushiro Kosen as a \nJapanese Government scholarship student. \n \n Currently active developing frontend and backend applications using NodeJS. \n \nI love to automate small insignificant tasks to make things more streamline and efficient. \n \nAlways actively learning new things and experimenting to expand my knowledge in programming.",
+	"tools.h2": "Tools",
+	"projects.h2": "Projects",
+	"socials.h2": "Socials",
+	"contactme.h2": "Contact Me",
+	"contactme.email": "Email",
+	"contactme.name": "Name",
+	"contactme.subject": "Subject",
+	"contactme.message": "Message",
+	"contactme.submit": "Send",
+	"contactme.submitpending": "Sending..",
+	"contactme.sent": "Sent!",
+	"contactme.error": "Error!"
+}

@@ -1,0 +1,19 @@
+{
+	"name.h1": "Christian Harjuno",
+	"shortdesc.p": "Siswa & Developer Web",
+	"readmore.button": "Baca Selebihnya",
+	"whoami.h2": "Siapakah saya?",
+	"whoami.p": "Web Developer amatir yang pada saat ini sedang belajar di Kushiro Kosen dengan beasiswa pemerintah Jepang. \n \n  Pada saat ini, saya aktif mengembangkan aplikasi frontend dan backend menggunakan NodeJS. Saya suka otomatisasi pekerjaan kecil untuk membuat segalanya lebih mudah dan efisien.  \n \n Selalu aktif mempelajari hal - hal yang baru, dan bereksperimen demi mengembangkan pendidikan dalam pemograman",
+	"tools.h2": "Alat yang saya gunakan",
+	"projects.h2": "Proyek - proyek",
+	"socials.h2": "Sosial Media",
+	"contactme.h2": "Hubungi Saya",
+	"contactme.email": "Email",
+	"contactme.name": "Nama",
+	"contactme.subject": "Subjek",
+	"contactme.message": "Pesan",
+	"contactme.submit": "Kirim",
+	"contactme.submitpending": "Mengirim...",
+	"contactme.sent": "Terkirim!",
+	"contactme.error": "Gagal Mengirim!"
+}

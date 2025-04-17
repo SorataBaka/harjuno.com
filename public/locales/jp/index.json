@@ -1,0 +1,19 @@
+{
+	"name.h1": "Christian Harjuno\nクリスティアン ハルジュノ",
+	"shortdesc.p": "学生＆Webデベロッパー",
+	"readmore.button": "詳しくみる",
+	"whoami.h2": "だれ？",
+	"whoami.p": "日本政府の奨学生として釧路高専に通っているアマチュアWebデベロッパーである。\n\n現在、NodeJSを使用してフロントエンドおよびバックエンドのアプリケーション開発を積極的に取り組んでいる。\n\n小さなタスクを自動化し、物事をより合理化および効率化することに興味を持っている。\n\n常に新しいことを積極的に学び、プログラミングの知識を広げるために努力している。",
+	"tools.h2": "使用しているツール",
+	"projects.h2": "作ったプロジェクト",
+	"socials.h2": "ソーシャルメディア",
+	"contactme.h2": "お問い合わせ",
+	"contactme.email": "メールアドレス",
+	"contactme.name": "名前",
+	"contactme.subject": "件名",
+	"contactme.message": "メッセージ",
+	"contactme.submit": "送信",
+	"contactme.submitpending": "送信中。。",
+	"contactme.sent": "送信した！",
+	"contactme.error": "失敗した！"
+}
