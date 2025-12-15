@@ -39,15 +39,42 @@ import Link from "next/link";
 interface Props {
 	locale: string;
 }
+
+function Reveal({ children }: { children: React.ReactNode }) {
+	const ref = useRef<HTMLDivElement>(null);
+	const [show, setShow] = useState(false);
+
+	useEffect(() => {
+		const io = new IntersectionObserver(
+			([e]) => e.isIntersecting && setShow(true),
+			{ threshold: 0.2 }
+		);
+		ref.current && io.observe(ref.current);
+		return () => io.disconnect();
+	}, []);
+
+	return (
+		<div
+			ref={ref}
+			className={`transition-all duration-700 ${
+				show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+			}`}
+		>
+			{children}
+		</div>
+	);
+}
+
 const Home: FC<Props> = ({ locale }) => {
 	const SITEKEY = process.env.TURNSTILE_SITE_KEY as string;
 	const { t } = useTranslation(["index"]);
 	const topsectionref = useRef<null | HTMLDivElement>(null);
 	const nextpageref = useRef<null | HTMLDivElement>(null);
 	const contactref = useRef<null | HTMLDivElement>(null);
-	const [isIntersecting, setIsIntersecting] = useState(true);
+	const [isIntersecting, setIsIntersecting] = useState<boolean>(true);
 	const [turnstileToken, setTurnstileToken] = useState<boolean>(false);
 	const [sendStatus, setSendStatus] = useState<number>(1);
+
 	useEffect(() => {
 		const observer = new IntersectionObserver(([entry]) => {
 			setIsIntersecting(entry.isIntersecting);
@@ -81,7 +108,7 @@ const Home: FC<Props> = ({ locale }) => {
 		},
 		{
 			Logo: BsInstagram,
-			link: "https://www.instagram.com/tian.harjuno/",
+			link: "https://www.instagram.com/tianharjuno/",
 		},
 		{
 			Logo: BsLinkedin,
@@ -178,8 +205,9 @@ const Home: FC<Props> = ({ locale }) => {
 			<main className="flex flex-col min-w-full">
 				{!isIntersecting && (
 					<BsFillArrowUpCircleFill
-						size={45}
-						className="fixed bg-slate-400 bg-opacity-40 shadow-[0px_0px_100px_10px_rgba(0,0,0,1)] rounded-full bottom-5 right-5 border-white border hover:cursor-pointer "
+						size={50}
+						color="white"
+						className="fixed bg-black rounded-full bottom-5 right-5  border-none hover:cursor-pointer z-50"
 						onClick={(e) => {
 							e.preventDefault();
 							topsectionref.current?.scrollIntoView({
@@ -227,13 +255,13 @@ const Home: FC<Props> = ({ locale }) => {
 					<Image
 						alt="Profile Picture"
 						priority={true}
-						src={"/profile-picture.JPG"}
+						src={"/profile-picture.png"}
 						width={250}
 						height={250}
 						placeholder="blur"
 						blurDataURL="/blue.jpg"
 						loading="eager"
-						quality={60}
+						quality={80}
 						className="rounded-full mx-auto shadow-[0px_0px_900px_30px_rgba(255,255,255,0.3)]"
 					/>
 					<h1 className="font-mono text-white text-center text-3xl mt-5 font-bold lg:text-5xl">
@@ -256,156 +284,166 @@ const Home: FC<Props> = ({ locale }) => {
 						{t("readmore.button")}
 					</button>
 				</section>
-				<section
-					className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white"
-					ref={nextpageref}
-				>
-					<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
-						{t("whoami.h2")}
-					</h2>
-					<p className="font-mono text-xl text-center mt-5 lg:text-3xl">
-						{t("whoami.p")}
-					</p>
-				</section>
-				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white">
-					<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
-						{t("tools.h2")}
-					</h2>
-					<div className="grid grid-cols-2 lg:grid-cols-8">
-						{icons.map((Icon, index) => {
-							return (
-								<Icon
-									size={100}
-									key={index}
-									className="mx-auto my-5 shadow-[0px_0px_1000px_10px_rgba(255,255,255,0.2)] bg-white/[.045] rounded-xl"
-								/>
-							);
-						})}
-					</div>
-				</section>
-				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white">
-					<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
-						{t("projects.h2")}
-					</h2>
-					<div className="flex flex-col w-full space-y-5 lg:grid lg:grid-cols-3 lg:space-y-0 lg:gap-10">
-						{projects.map((project, index) => {
-							return (
-								<ProjectTemplate
-									description={project.description}
-									icon={project.icon}
-									projectName={project.projectName}
-									url={project.url}
-									key={index}
-								/>
-							);
-						})}
-					</div>
-				</section>
-				<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white">
-					<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
-						{t("socials.h2")}
-					</h2>
-					<div className="grid grid-cols-2 lg:grid-cols-4">
-						{socials.map((Social, index) => {
-							return (
-								<Link key={index} href={Social.link}>
-									<Social.Logo
-										size={70}
-										className="mx-auto my-10 hover:cursor-pointer shadow-[0px_0px_100px_10px_rgba(255,255,255,0.3)] rounded-3xl"
-									/>
-								</Link>
-							);
-						})}
-						<FiMail
-							size={70}
-							className="mx-auto my-10 hover:cursor-pointer shadow-[0px_0px_100px_10px_rgba(255,255,255,0.3)] rounded-3xl"
-							onClick={(e) => {
-								e.preventDefault();
-								contactref.current?.scrollIntoView({
-									behavior: "smooth",
-									block: "start",
-									inline: "start",
-								});
-							}}
-						/>
-					</div>
-				</section>
-				<section
-					className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white"
-					ref={contactref}
-				>
-					<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
-						{t("contactme.h2")}
-					</h2>
-					<form
-						className="space-y-3  md:w-1/2 md:mx-auto flex flex-col justify-center align-middle"
-						method="POST"
-						action="/api/contact"
-						onSubmit={handlesend}
+				<Reveal>
+					<section
+						className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white"
+						ref={nextpageref}
 					>
-						<input
-							type="email"
-							placeholder={t("contactme.email") as string}
-							className="w-full bg-transparent text-white p-2 border rounded-lg disabled:bg-slate-900 "
-							required
-							name="email"
-						/>
-						<input
-							type="text"
-							placeholder={t("contactme.name") as string}
-							className="w-full bg-transparent text-white p-2 border rounded-lg disabled:bg-slate-900 "
-							required
-							name="name"
-							minLength={3}
-							maxLength={30}
-						/>
-						<input
-							type="text"
-							placeholder={t("contactme.subject") as string}
-							className="w-full bg-transparent text-white p-2 border rounded-lg disabled:bg-slate-900 "
-							required
-							name="subject"
-							minLength={5}
-							maxLength={20}
-						/>
-						<textarea
-							placeholder={t("contactme.message") as string}
-							cols={30}
-							rows={10}
-							className="w-full bg-transparent text-white p-2 border rounded-lg disabled:bg-slate-900 "
-							required
-							name="message"
-							minLength={10}
-							maxLength={400}
-						/>
-						<input
-							type="submit"
-							className="text-white mt-10 border mx-auto rounded-xl p-3 m-auto font-mono disabled:bg-slate-900 w-full lg:w-1/2 "
-							value={
-								t(
-									sendStatus === 1
-										? "contactme.submit"
-										: sendStatus === 2
-										? "contactme.submitpending"
-										: "contactme.sent"
-								) as string
-							}
-							disabled={!turnstileToken}
-						/>
-						<Turnstile
-							sitekey={SITEKEY}
-							theme="dark"
-							onVerify={(token: string) => {
-								setTurnstileToken(true);
-							}}
-							refreshExpired="auto"
-							responseField={true}
-							responseFieldName="token"
-							className="mx-auto mt-5 rounded-lg"
-							size="normal"
-						/>
-					</form>
-				</section>
+						<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
+							{t("whoami.h2")}
+						</h2>
+						<p className="font-mono text-xl text-center mt-5 lg:text-3xl">
+							{t("whoami.p")}
+						</p>
+					</section>
+				</Reveal>
+				<Reveal>
+					<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white">
+						<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
+							{t("tools.h2")}
+						</h2>
+						<div className="grid grid-cols-2 lg:grid-cols-8">
+							{icons.map((Icon, index) => {
+								return (
+									<Icon
+										size={100}
+										key={index}
+										className="mx-auto my-5 shadow-[0px_0px_1000px_10px_rgba(255,255,255,0.2)] bg-white/[.045] rounded-xl"
+									/>
+								);
+							})}
+						</div>
+					</section>
+				</Reveal>
+				<Reveal>
+					<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white">
+						<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
+							{t("projects.h2")}
+						</h2>
+						<div className="flex flex-col w-full space-y-5 lg:grid lg:grid-cols-3 lg:space-y-0 lg:gap-10">
+							{projects.map((project, index) => {
+								return (
+									<ProjectTemplate
+										description={project.description}
+										icon={project.icon}
+										projectName={project.projectName}
+										url={project.url}
+										key={index}
+									/>
+								);
+							})}
+						</div>
+					</section>
+				</Reveal>
+				<Reveal>
+					<section className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white">
+						<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
+							{t("socials.h2")}
+						</h2>
+						<div className="grid grid-cols-2 lg:grid-cols-4">
+							{socials.map((Social, index) => {
+								return (
+									<Link key={index} href={Social.link}>
+										<Social.Logo
+											size={100}
+											className="mx-auto my-10 hover:cursor-pointer rounded-3xl"
+										/>
+									</Link>
+								);
+							})}
+							<FiMail
+								size={100}
+								className="mx-auto my-10 hover:cursor-pointer rounded-3xl"
+								onClick={(e) => {
+									e.preventDefault();
+									contactref.current?.scrollIntoView({
+										behavior: "smooth",
+										block: "start",
+										inline: "start",
+									});
+								}}
+							/>
+						</div>
+					</section>
+				</Reveal>
+				<Reveal>
+					<section
+						className="bg-gray-950 min-h-screen w-full flex flex-col align-middle justify-center p-10 text-white"
+						ref={contactref}
+					>
+						<h2 className="font-mono text-3xl text-center mb-10 font-bold lg:text-5xl">
+							{t("contactme.h2")}
+						</h2>
+						<form
+							className="space-y-3  md:w-1/2 md:mx-auto flex flex-col justify-center align-middle"
+							method="POST"
+							action="/api/contact"
+							onSubmit={handlesend}
+						>
+							<input
+								type="email"
+								placeholder={t("contactme.email") as string}
+								className="w-full bg-transparent text-white p-2 border rounded-lg disabled:bg-slate-900 "
+								required
+								name="email"
+							/>
+							<input
+								type="text"
+								placeholder={t("contactme.name") as string}
+								className="w-full bg-transparent text-white p-2 border rounded-lg disabled:bg-slate-900 "
+								required
+								name="name"
+								minLength={3}
+								maxLength={30}
+							/>
+							<input
+								type="text"
+								placeholder={t("contactme.subject") as string}
+								className="w-full bg-transparent text-white p-2 border rounded-lg disabled:bg-slate-900 "
+								required
+								name="subject"
+								minLength={5}
+								maxLength={20}
+							/>
+							<textarea
+								placeholder={t("contactme.message") as string}
+								cols={30}
+								rows={10}
+								className="w-full bg-transparent text-white p-2 border rounded-lg disabled:bg-slate-900 "
+								required
+								name="message"
+								minLength={10}
+								maxLength={400}
+							/>
+							<input
+								type="submit"
+								className="text-white mt-10 border mx-auto rounded-xl p-3 m-auto font-mono disabled:bg-slate-900 w-full lg:w-1/2 "
+								value={
+									t(
+										sendStatus === 1
+											? "contactme.submit"
+											: sendStatus === 2
+											? "contactme.submitpending"
+											: "contactme.sent"
+									) as string
+								}
+								disabled={!turnstileToken}
+							/>
+							<Turnstile
+								sitekey={SITEKEY}
+								theme="dark"
+								onVerify={(token: string) => {
+									setTurnstileToken(true);
+								}}
+								refreshExpired="auto"
+								responseField={true}
+								responseFieldName="token"
+								className="mx-auto mt-5 rounded-lg"
+								size="normal"
+							/>
+						</form>
+					</section>
+				</Reveal>
 			</main>
 		</>
 	);
