@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { DefaultSeo } from "next-seo";
 import { appWithTranslation } from "next-i18next";
 import { ToastContainer } from "react-toastify";
+import { Analytics } from "@vercel/analytics/next";
 import "react-toastify/dist/ReactToastify.css";
 const App = ({ Component, pageProps }: AppProps) => {
 	return (
@@ -37,6 +38,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 				}}
 			/>
 			<Component {...pageProps} />
+			<Analytics />
 		</>
 	);
 };
